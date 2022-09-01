@@ -1,26 +1,28 @@
-public int find_Kth_Largest(int[] arr,int k,int low ,int high){
-  
-  
-      if(low<=high){
-        int p = partiton(arr,low,high);
-        
-        if(p<k){
-            return find_Kth_Largest(arr,p+1,high);
-        }
-        
-        else if(p>k){
-            return find_Kth_Largest(arr,low,p-1);
-        }
-        
-        else{
-            
-            return arr[p];
-        }
-      
-      }
-}
+class Solution {
+    
+    public int findKthLargest(int[] nums, int k) {
+        int len=nums.length;
+        return quickSelect(nums,0,len-1,len-k);
+    }
+    public int quickSelect(int[] nums,int low,int high,int k){
 
-public int partiton(int arr,int low,int high){
+        if(low>high){
+            return -1;
+        }
+        //recursive case
+        int p=partition(nums,low,high);
+        if(p==k){
+            return nums[p];
+        }
+        else if(p<k){
+            return quickSelect(nums,p+1,high,k);
+        }
+        else{
+            return quickSelect(nums,low,p-1,k);
+        }
+    }
+    
+    public int partition(int[] arr,int low,int high){
 
     int i=low;
     int j=low;
@@ -29,7 +31,7 @@ public int partiton(int arr,int low,int high){
   
     while(i<=high){
         
-        if(arr[i]<=pivot){
+        if(pivot>=arr[i]){
           
             int temp = arr[i];
             arr[i]=arr[j];
@@ -44,5 +46,6 @@ public int partiton(int arr,int low,int high){
     }
   
     return j-1;
+   }
 
 }
