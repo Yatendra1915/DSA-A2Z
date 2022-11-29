@@ -1,23 +1,19 @@
 class Solution {
     
+    List<List<Integer>> list;
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         
-        List<List<Integer>> list =new ArrayList<>();
-       
+        list=new ArrayList<>();
         Arrays.sort(candidates);
-        helper(candidates,target,0,new ArrayList<>(),list);
-        
-        for(List<Integer> ls:set){
-            list.add(ls);
-        }
+        helper(candidates,target,0,new ArrayList<>());
         
         return list;
     }
     
-    public void helper(int[] candidates,int target,int i,List<Integer> temp,List<List<Integer>> list){
+    public void helper(int[] candidates,int target,int i,List<Integer> temp){
         
         if(target==0){
-            set.add(new ArrayList(temp));
+            list.add(new ArrayList(temp));
             return;
         }
         
@@ -27,7 +23,7 @@ class Solution {
         
         if(target-candidates[i]>=0){
             temp.add(candidates[i]);
-            helper(candidates,target-candidates[i],i+1,temp,list);
+            helper(candidates,target-candidates[i],i+1,temp);
             temp.remove(temp.size()-1);
         }
         
@@ -35,6 +31,6 @@ class Solution {
            i++;     
        }
         
-        helper(candidates,target,i+1,temp,list);
+        helper(candidates,target,i+1,temp);
     }
 }
